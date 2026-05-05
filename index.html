@@ -14,10 +14,71 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Dancing+Script:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+    <style>
+      html, body { margin: 0; padding: 0; height: 100%; background: #fbeae6; }
+      body {
+        background: linear-gradient(160deg, #fbeae6 0%, #f5d0cb 50%, #e6c79c 100%);
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+      #initial-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        background: linear-gradient(160deg, #fbeae6 0%, #f5d0cb 50%, #e6c79c 100%);
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      #initial-loader.fade { opacity: 0; pointer-events: none; }
+      .loader-heart {
+        width: 72px;
+        height: 72px;
+        border-radius: 9999px;
+        background: linear-gradient(135deg, #d68a92, #b65b6a 60%, #e6c79c);
+        display: grid;
+        place-items: center;
+        box-shadow: 0 20px 50px -15px rgba(120, 40, 60, 0.45);
+        animation: loader-pulse 1.2s ease-in-out infinite;
+      }
+      .loader-heart svg { width: 32px; height: 32px; color: #fff; }
+      .loader-text {
+        font-family: 'Dancing Script', cursive, system-ui;
+        color: #b65b6a;
+        font-size: 1.5rem;
+        letter-spacing: 0.01em;
+      }
+      .loader-dots { display: flex; gap: 6px; }
+      .loader-dots span {
+        width: 7px; height: 7px; border-radius: 9999px;
+        background: rgba(182, 91, 106, 0.7);
+        animation: loader-bounce 1s ease-in-out infinite;
+      }
+      .loader-dots span:nth-child(2) { animation-delay: 0.15s; }
+      .loader-dots span:nth-child(3) { animation-delay: 0.3s; }
+      @keyframes loader-pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.12); }
+      }
+      @keyframes loader-bounce {
+        0%, 100% { transform: translateY(0); opacity: 0.4; }
+        50% { transform: translateY(-6px); opacity: 1; }
+      }
+    </style>
   </head>
 
   <body>
     <div id="root"></div>
+    <div id="initial-loader">
+      <div class="loader-heart">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>
+      </div>
+      <div class="loader-text">preparando sua surpresa…</div>
+      <div class="loader-dots"><span></span><span></span><span></span></div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
