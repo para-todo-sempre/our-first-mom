@@ -10,9 +10,12 @@ type Props = {
   onExit: () => void;
 };
 
+const STORY_DURATION = 7000;
+
 const StoryScreen = ({ onFinish, onExit }: Props) => {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [paused, setPaused] = useState(false);
   const [hearts, setHearts] = useState<{ id: number; x: number }[]>([]);
   const heartId = useRef(0);
 
@@ -55,6 +58,20 @@ const StoryScreen = ({ onFinish, onExit }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
+  // Auto advance
+  useEffect(() => {
+    if (paused) return;
+    const t = setTimeout(() => {
+      if (index >= memories.length - 1) onFinish();
+      else {
+        setDirection(1);
+        setIndex((i) => i + 1);
+      }
+    }, STORY_DURATION);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, paused]);
+
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden bg-black">
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -83,7 +100,7 @@ const StoryScreen = ({ onFinish, onExit }: Props) => {
 
       {/* Top bar */}
       <div className="absolute inset-x-0 top-0 z-20 safe-top px-4 pt-3">
-        <ProgressIndicator total={memories.length} current={index} />
+        <ProgressIndicator total={memories.length} current={index} duration={STORY_DURATION} paused={paused} />
         <div className="mt-3 flex items-center justify-between text-white/90">
           <span className="font-script text-lg drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]">
             Memória {index + 1} de {memories.length}
