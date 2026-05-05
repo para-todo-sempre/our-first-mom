@@ -100,7 +100,7 @@ const StoryScreen = ({ onFinish, onExit }: Props) => {
 
       {/* Top bar */}
       <div className="absolute inset-x-0 top-0 z-20 safe-top px-4 pt-3">
-        <ProgressIndicator total={memories.length} current={index} />
+        <ProgressIndicator total={memories.length} current={index} duration={STORY_DURATION} paused={paused} />
         <div className="mt-3 flex items-center justify-between text-white/90">
           <span className="font-script text-lg drop-shadow-[0_2px_6px_rgba(0,0,0,0.4)]">
             Memória {index + 1} de {memories.length}
