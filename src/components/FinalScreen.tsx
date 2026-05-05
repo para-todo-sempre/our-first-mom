@@ -144,16 +144,6 @@ const FinalScreen = ({ onReplay, onOpenLetter }: Props) => {
       >
         {sharing ? <Loader2 size={20} className="animate-spin" /> : <Instagram size={20} />}
       </motion.button>
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={onReplay}
-            className="no-tap-highlight flex items-center justify-center gap-2 rounded-full bg-white/70 px-6 py-4 font-medium text-ink backdrop-blur-md"
-          >
-            <RotateCcw size={16} />
-            Rever nossa história
-          </motion.button>
-        </motion.div>
-      </div>
     </div>
   );
 };
