@@ -1,16 +1,66 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import MobileFrame from "@/components/MobileFrame";
+import IntroScreen from "@/components/IntroScreen";
+import StoryScreen from "@/components/StoryScreen";
+import FinalScreen from "@/components/FinalScreen";
+import SecretLetter from "@/components/SecretLetter";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+type Screen = "intro" | "story" | "final";
+
+const Index = () => {
+  const [screen, setScreen] = useState<Screen>("intro");
+  const [letterOpen, setLetterOpen] = useState(false);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
-    </div>
+    <MobileFrame>
+      <AnimatePresence mode="wait">
+        {screen === "intro" && (
+          <motion.div
+            key="intro"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.5 }}
+          >
+            <IntroScreen onStart={() => setScreen("story")} />
+          </motion.div>
+        )}
+
+        {screen === "story" && (
+          <motion.div
+            key="story"
+            initial={{ opacity: 0, scale: 1.02 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <StoryScreen
+              onFinish={() => setScreen("final")}
+              onExit={() => setScreen("intro")}
+            />
+          </motion.div>
+        )}
+
+        {screen === "final" && (
+          <motion.div
+            key="final"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <FinalScreen
+              onReplay={() => setScreen("story")}
+              onOpenLetter={() => setLetterOpen(true)}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <SecretLetter open={letterOpen} onClose={() => setLetterOpen(false)} />
+    </MobileFrame>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
