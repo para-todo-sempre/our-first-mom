@@ -121,13 +121,29 @@ const FinalScreen = ({ onReplay, onOpenLetter }: Props) => {
           </motion.button>
           <motion.button
             whileTap={{ scale: 0.95 }}
-            onClick={handleShare}
-            disabled={sharing}
-            className="no-tap-highlight flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#feda75] via-[#d62976] to-[#962fbf] px-6 py-4 font-medium text-white shadow-soft disabled:opacity-70"
+            onClick={onReplay}
+            className="no-tap-highlight flex items-center justify-center gap-2 rounded-full bg-white/70 px-6 py-4 font-medium text-ink backdrop-blur-md"
           >
-            {sharing ? <Loader2 size={18} className="animate-spin" /> : <Instagram size={18} />}
-            {sharing ? "Preparando..." : "Compartilhar nos Stories"}
+            <RotateCcw size={16} />
+            Rever nossa história
           </motion.button>
+        </motion.div>
+      </div>
+
+      {/* Floating Instagram share button */}
+      <motion.button
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1.6, type: "spring" }}
+        whileTap={{ scale: 0.9 }}
+        onClick={handleShare}
+        disabled={sharing}
+        aria-label="Compartilhar nos Stories"
+        className="no-tap-highlight absolute right-4 top-4 z-30 grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#962fbf] text-white shadow-soft safe-top disabled:opacity-70"
+        style={{ top: "calc(env(safe-area-inset-top, 0px) + 1rem)" }}
+      >
+        {sharing ? <Loader2 size={20} className="animate-spin" /> : <Instagram size={20} />}
+      </motion.button>
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={onReplay}
