@@ -100,7 +100,20 @@ const StoryScreen = ({ onFinish, onExit }: Props) => {
             alt={current.alt}
             className="h-full w-full object-cover"
             draggable={false}
+            decoding="async"
+            // @ts-expect-error fetchpriority is valid HTML
+            fetchpriority="high"
           />
+          {/* Hidden preload for next image */}
+          {memories[index + 1] && (
+            <img
+              src={memories[index + 1].image}
+              alt=""
+              aria-hidden="true"
+              className="hidden"
+              decoding="async"
+            />
+          )}
           <div className="absolute inset-0 gradient-overlay" />
         </motion.div>
       </AnimatePresence>
