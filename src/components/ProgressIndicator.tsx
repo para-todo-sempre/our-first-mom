@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 type Props = {
   total: number;
   current: number;
+  duration: number;
+  paused?: boolean;
 };
 
-const ProgressIndicator = ({ total, current }: Props) => {
+const ProgressIndicator = ({ total, current, duration, paused }: Props) => {
   return (
     <div className="flex w-full gap-1.5">
       {Array.from({ length: total }).map((_, i) => {
@@ -19,10 +21,10 @@ const ProgressIndicator = ({ total, current }: Props) => {
             {isPast && <div className="absolute inset-0 bg-white" />}
             {isActive && (
               <motion.div
-                key={`active-${current}`}
+                key={`active-${current}-${paused ? "p" : "r"}`}
                 initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
+                animate={{ width: paused ? "0%" : "100%" }}
+                transition={{ duration: paused ? 0 : duration / 1000, ease: "linear" }}
                 className="absolute inset-y-0 left-0 bg-white"
               />
             )}
