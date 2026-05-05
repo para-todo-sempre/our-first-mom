@@ -115,21 +115,8 @@ const FinalScreen = ({ onReplay, onOpenLetter }: Props) => {
         </motion.div>
       </div>
 
-      {/* Floating Instagram share button */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1.6, type: "spring" }}
-        whileTap={{ scale: 0.9 }}
-        onClick={handleShare}
-        disabled={sharing}
-        aria-label="Compartilhar nos Stories"
-        className="no-tap-highlight absolute right-4 top-4 z-30 grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#962fbf] text-white shadow-soft safe-top disabled:opacity-70"
-        style={{ top: "calc(env(safe-area-inset-top, 0px) + 1rem)" }}
-      >
-        {sharing ? <Loader2 size={20} className="animate-spin" /> : <Instagram size={20} />}
-      </motion.button>
     </div>
+
   );
 };
 
