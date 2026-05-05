@@ -1,8 +1,8 @@
-import memory1 from "@/assets/memory-1.png";
-import memory2 from "@/assets/memory-2.png";
-import memory3 from "@/assets/memory-3.png";
-import memory4 from "@/assets/memory-4.png";
-import memory5 from "@/assets/memory-5.png";
+import memory1 from "@/assets/memory-1.jpg";
+import memory2 from "@/assets/memory-2.jpg";
+import memory3 from "@/assets/memory-3.jpg";
+import memory4 from "@/assets/memory-4.jpg";
+import memory5 from "@/assets/memory-5.jpg";
 
 export type Memory = {
   id: number;
