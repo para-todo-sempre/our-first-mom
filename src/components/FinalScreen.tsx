@@ -121,6 +121,15 @@ const FinalScreen = ({ onReplay, onOpenLetter }: Props) => {
           </motion.button>
           <motion.button
             whileTap={{ scale: 0.95 }}
+            onClick={handleShare}
+            disabled={sharing}
+            className="no-tap-highlight flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#feda75] via-[#d62976] to-[#962fbf] px-6 py-4 font-medium text-white shadow-soft disabled:opacity-70"
+          >
+            {sharing ? <Loader2 size={18} className="animate-spin" /> : <Instagram size={18} />}
+            {sharing ? "Preparando..." : "Compartilhar nos Stories"}
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.95 }}
             onClick={onReplay}
             className="no-tap-highlight flex items-center justify-center gap-2 rounded-full bg-white/70 px-6 py-4 font-medium text-ink backdrop-blur-md"
           >
