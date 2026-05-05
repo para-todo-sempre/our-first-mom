@@ -10,9 +10,12 @@ type Props = {
   onExit: () => void;
 };
 
+const STORY_DURATION = 7000;
+
 const StoryScreen = ({ onFinish, onExit }: Props) => {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [paused, setPaused] = useState(false);
   const [hearts, setHearts] = useState<{ id: number; x: number }[]>([]);
   const heartId = useRef(0);
 
