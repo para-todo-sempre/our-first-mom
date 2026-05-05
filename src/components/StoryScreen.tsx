@@ -58,6 +58,20 @@ const StoryScreen = ({ onFinish, onExit }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
+  // Auto advance
+  useEffect(() => {
+    if (paused) return;
+    const t = setTimeout(() => {
+      if (index >= memories.length - 1) onFinish();
+      else {
+        setDirection(1);
+        setIndex((i) => i + 1);
+      }
+    }, STORY_DURATION);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, paused]);
+
   return (
     <div className="relative h-[100dvh] w-full overflow-hidden bg-black">
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
