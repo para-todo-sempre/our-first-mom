@@ -12,6 +12,13 @@ type Props = {
 
 const STORY_DURATION = 7000;
 
+// Preload all memory images at module load — they're tiny imports already bundled
+const preloadedImages = memories.map((m) => {
+  const img = new Image();
+  img.src = m.image;
+  return img;
+});
+
 const StoryScreen = ({ onFinish, onExit }: Props) => {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
