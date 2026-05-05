@@ -12,6 +12,19 @@ type Props = {
 };
 
 const FinalScreen = ({ onReplay, onOpenLetter }: Props) => {
+  const [sharing, setSharing] = useState(false);
+
+  const handleShare = async () => {
+    if (sharing) return;
+    setSharing(true);
+    const result = await shareToInstagram();
+    setSharing(false);
+    if (result === "shared") toast.success("Pronto! Escolha o Instagram Stories ✨");
+    else if (result === "downloaded")
+      toast.success("Imagem salva! Abra o Instagram e poste nos Stories 💌");
+    else if (result === "error") toast.error("Não foi possível gerar a imagem.");
+  };
+
   return (
     <div className="relative min-h-[100dvh] w-full overflow-hidden">
       {/* Blurred photo background */}
