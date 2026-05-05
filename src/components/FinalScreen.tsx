@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
-import { Heart, Mail, RotateCcw } from "lucide-react";
+import { Heart, Instagram, Loader2, Mail, RotateCcw } from "lucide-react";
+import { useState } from "react";
 import { AmbientHearts } from "./MobileFrame";
 import memory5 from "@/assets/memory-5.png";
+import { shareToInstagram } from "@/lib/share";
+import { toast } from "sonner";
 
 type Props = {
   onReplay: () => void;
@@ -9,6 +12,19 @@ type Props = {
 };
 
 const FinalScreen = ({ onReplay, onOpenLetter }: Props) => {
+  const [sharing, setSharing] = useState(false);
+
+  const handleShare = async () => {
+    if (sharing) return;
+    setSharing(true);
+    const result = await shareToInstagram();
+    setSharing(false);
+    if (result === "shared") toast.success("Pronto! Escolha o Instagram Stories ✨");
+    else if (result === "downloaded")
+      toast.success("Imagem salva! Abra o Instagram e poste nos Stories 💌");
+    else if (result === "error") toast.error("Não foi possível gerar a imagem.");
+  };
+
   return (
     <div className="relative min-h-[100dvh] w-full overflow-hidden">
       {/* Blurred photo background */}
@@ -102,6 +118,15 @@ const FinalScreen = ({ onReplay, onOpenLetter }: Props) => {
           >
             <Mail size={18} />
             Guardar esse momento
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.95 }}
+            onClick={handleShare}
+            disabled={sharing}
+            className="no-tap-highlight flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#feda75] via-[#d62976] to-[#962fbf] px-6 py-4 font-medium text-white shadow-soft disabled:opacity-70"
+          >
+            {sharing ? <Loader2 size={18} className="animate-spin" /> : <Instagram size={18} />}
+            {sharing ? "Preparando..." : "Compartilhar nos Stories"}
           </motion.button>
           <motion.button
             whileTap={{ scale: 0.95 }}
