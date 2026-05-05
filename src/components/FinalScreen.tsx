@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Heart, Mail, RotateCcw } from "lucide-react";
 import { AmbientHearts } from "./MobileFrame";
-import memory5 from "@/assets/memory-5.png";
+import memory5 from "@/assets/memory-5.jpg";
 
 type Props = {
   onReplay: () => void;
