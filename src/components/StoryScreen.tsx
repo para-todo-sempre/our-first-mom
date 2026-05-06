@@ -79,8 +79,17 @@ const StoryScreen = ({ onFinish, onExit }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, paused]);
 
+  const holdPause = () => setPaused(true);
+  const holdResume = () => setPaused(false);
+
   return (
-    <div className="relative h-[100dvh] w-full overflow-hidden bg-black">
+    <div
+      className="relative h-[100dvh] w-full overflow-hidden bg-black select-none"
+      onPointerDown={holdPause}
+      onPointerUp={holdResume}
+      onPointerCancel={holdResume}
+      onPointerLeave={holdResume}
+    >
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
           key={current.id}
